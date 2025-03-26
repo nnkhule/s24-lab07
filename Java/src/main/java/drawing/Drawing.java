@@ -1,13 +1,11 @@
 package drawing;
 
-import drawing.shapes.Line;
-import drawing.shapes.Shape;
-import drawing.writing.JPEGWriter;
-import drawing.writing.PNGWriter;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
+
+import drawing.shapes.Shape;
+import drawing.writing.WriterStrategy;
 
 /**
  * Refactor Task 3: (Mis-)Shaped
@@ -28,28 +26,13 @@ public class Drawing {
      * @param format   file format
      * @param filename file name
      */
-    public void draw(String format, String filename) {
-        // TODO: Do you notice any issues here?
-        if (format.equals("jpeg")) {
-            try (Writer writer = new JPEGWriter(filename + ".jpeg")) {
-                for (Shape shape : this.shapes) {
-                    // TODO: What is the issue of the behavior here?
-                    Line[] lines = shape.toLines();
-                    shape.draw(writer, lines);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+    public void draw(WriterStrategy strategy, String filename) {
+        try (Writer writer = strategy.createWriter(filename)) {
+            for (Shape shape : shapes) {
+                shape.draw(writer, shape.toLines());
             }
-        } else if (format.equals("png")) {
-            try (Writer writer = new PNGWriter(filename + ".png")) {
-                for (Shape shape : this.shapes) {
-                    Line[] lines = shape.toLines();
-                    shape.draw(writer, lines);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
-
