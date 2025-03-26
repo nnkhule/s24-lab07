@@ -1,5 +1,4 @@
 package frogger;
-
 /**
  * Refactor Task 1 & 2: Frogger
  *
@@ -56,5 +55,5 @@ public class Frogger {
         return records.addRecord(id);
     }
     
-
+    
 }
