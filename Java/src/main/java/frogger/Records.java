@@ -1,45 +1,20 @@
 package frogger;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Refactor Task 2.
- *
- * @author Zishen Wen (F22), Deyuan Chen (S22)
- */
 public class Records {
-    private final List<String[]> records;
+    private final Map<FroggerID, Integer> records; // FroggerID болон байрлалыг хадгална.
 
     public Records() {
-        this.records = new ArrayList<>();
+        this.records = new HashMap<>();
     }
 
-    /**
-     * Adds a frogger's record.
-     *
-     * @param firstName   first name of the frogger
-     * @param lastName    last name of the frogger
-     * @param phoneNumber phone number of the frogger
-     * @param zipCode     zip code of the frogger
-     * @param state       state of the frogger
-     * @param gender      gender of the frogger
-     * @return Return false if the record has existed. Else, return true.
-     */
-    public boolean addRecord(String firstName, String lastName, String phoneNumber,
-                             String zipCode, String state, String gender) {
-        for (String[] row : this.records) {
-            if (row[0].equals(firstName)
-                    && row[1].equals(lastName)
-                    && row[2].equals(phoneNumber)
-                    && row[3].equals(zipCode)
-                    && row[4].equals(state)
-                    && row[5].equals(gender)) {
-                return false;
-            }
+    public boolean addRecord(FroggerID id, int position) {
+        if (records.containsKey(id)) {
+            return false; // Аль хэдийн бүртгэлтэй бол бүртгэхгүй.
         }
-        this.records.add(
-                new String[]{firstName, lastName, phoneNumber, zipCode, state, gender});
+        records.put(id, position);
         return true;
     }
 }

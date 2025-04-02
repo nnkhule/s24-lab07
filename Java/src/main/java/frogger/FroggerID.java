@@ -1,12 +1,62 @@
 package frogger;
 
-// A record class that can conveniently store immutable data. 
-// To compare two record classes with their corresponding fields, simply use ".equals()".
-// More information: https://docs.oracle.com/en/java/javase/17/language/records.html#GUID-6699E26F-4A9B-4393-A08B-1E47D4B2D263
-public record FroggerID(String firstName,
-                     String lastName,
-                     String phoneNumber,
-                     String zipCode,
-                     String state,
-                     String gender) {
+public class FroggerID {
+    private final String firstName;
+    private final String lastName;
+    private final String phoneNumber;
+    private final String zipCode;
+    private final String state;
+    private final String gender;
+
+    // 6 параметрийг хүлээн авах конструктор
+    public FroggerID(String firstName, String lastName, String phoneNumber, String zipCode, String state, String gender) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.zipCode = zipCode;
+        this.state = state;
+        this.gender = gender;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        FroggerID froggerID = (FroggerID) obj;
+        return firstName.equals(froggerID.firstName) &&
+               lastName.equals(froggerID.lastName) &&
+               phoneNumber.equals(froggerID.phoneNumber) &&
+               zipCode.equals(froggerID.zipCode) &&
+               state.equals(froggerID.state) &&
+               gender.equals(froggerID.gender);
+    }
+
+    @Override
+    public int hashCode() {
+        return firstName.hashCode() + lastName.hashCode() + phoneNumber.hashCode() + zipCode.hashCode() + state.hashCode() + gender.hashCode();
+    }
 }
